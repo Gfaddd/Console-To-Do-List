@@ -11,7 +11,11 @@ namespace Console_To_Do_List
         private string name;
         private bool isCompleted;
         private DateTime completingTime;
-        public void compleatTask()
+        public Task() { }
+        public Task(string name) {
+            this.name = name;
+        }
+        public void CompleteTask()
         {
             isCompleted = true;
         }
