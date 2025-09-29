@@ -19,14 +19,19 @@ namespace Console_To_Do_List
         }
         public void CompleteTask(int index) {
             if (tasks[index] == null) {
-                throw new IndexOutOfRangeException();
+                return;
             }
             else {
                 tasks[index].CompleteTask();
             }
         }
         public void EditTask(int index, string newName) {
-            tasks[index].Name = newName;
+            if (tasks[index] == null) {
+                return;
+            }
+            else {
+                tasks[index].Name = newName;
+            }
         }
         public void SaveInfo() {
             using (FileStream fs = new FileStream("addedTasks.txt", FileMode.Create)) {
