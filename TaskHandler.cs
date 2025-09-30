@@ -11,23 +11,28 @@ namespace Console_To_Do_List
     internal class TaskHandler : Task
     {
         private List<Task> tasks;
-        public TaskHandler() { 
+        public TaskHandler() {
             tasks = new List<Task>();
         }
         public void AddTask(Task task) {
             tasks.Add(task);
         }
+        public bool CheckIndex(int index) {
+            if (tasks[index] == null)
+                return false;
+            return true;
+        }
         public void CompleteTask(int index) {
-            if (tasks[index] == null) {
-                return;
+            if (CheckIndex(index)) {
+                throw new IndexOutOfRangeException();
             }
             else {
                 tasks[index].CompleteTask();
             }
         }
         public void EditTask(int index, string newName) {
-            if (tasks[index] == null) {
-                return;
+            if (CheckIndex(index)) {
+                throw new IndexOutOfRangeException();
             }
             else {
                 tasks[index].Name = newName;
