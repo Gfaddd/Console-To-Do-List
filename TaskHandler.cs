@@ -20,24 +20,24 @@ namespace Console_To_Do_List
             tasks.Add(task);
         }
         public bool CheckIndex(int index) {
-            if (tasks[index] == null)
+            if (index < 0 || index >= tasks.Count)
                 return false;
             return true;
         }
 		public void CompleteTask(int index) {
-            if (CheckIndex(index)) {
+            if (!CheckIndex(index - 1)) {
                 throw new IndexOutOfRangeException();
             }
             else {
-                tasks[index].CompleteTask();
+                tasks[index-1].CompleteTask();
             }
         }
         public void EditTask(int index, string newName) {
-            if (CheckIndex(index)) {
+            if (!CheckIndex(index - 1)) {
                 throw new IndexOutOfRangeException();
             }
             else {
-                tasks[index].Name = newName;
+                tasks[index - 1].Name = newName;
             }
         }
         public void SaveInfo() {
@@ -52,8 +52,15 @@ namespace Console_To_Do_List
                     tasks = JsonSerializer.Deserialize<List<Task>>(fs);
         }
         public void RemoveTask(int index) {
-            tasks.RemoveAt(index);
-        }
+			if (!CheckIndex(index - 1))
+			{
+				throw new IndexOutOfRangeException();
+			}
+			else
+			{
+                tasks.RemoveAt(index - 1);
+			}
+		}
         public string GetInfo()
         {
             string result = "";
