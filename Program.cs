@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Console_To_Do_List;
+using System.Text.Json;
 
 bool stay = true;
 int menu;
@@ -48,81 +49,88 @@ do
 
 					do
 					{
-						stayInChoosenTaskMenu = true;
-
-						do
+						try
 						{
-							Console.WriteLine("\n\nВыберите задачу:");
-							PrintTasks();
-							Console.Write("Введите номер задачи (quit - чтобы выйти): ");
-							userInput = Console.ReadLine();
-							if (userInput.Trim().ToLower().Equals("quit"))
-							{
-								stayInTaskMenu = false;
-								break;
-							}
-						} while (!int.TryParse(userInput, out index));
-
-						if (!taskHandler.HasIndex(index))
-						{
-							Console.WriteLine("Такого индекса нет");
-							continue;
-						}
-
-
-
-						while (stayInChoosenTaskMenu && stayInTaskMenu)
-						{
+							stayInChoosenTaskMenu = true;
 
 							do
 							{
-								PrintTaskMenu();
-								Console.Write("Введите пункт меню: ");
-							} while (!int.TryParse(Console.ReadLine(), out subMenu));
+								Console.WriteLine("\n\nВыберите задачу:");
+								PrintTasks();
+								Console.Write("Введите номер задачи (quit - чтобы выйти): ");
+								userInput = Console.ReadLine();
+								if (userInput.Trim().ToLower().Equals("quit"))
+								{
+									stayInTaskMenu = false;
+									break;
+								}
+							} while (!int.TryParse(userInput, out index));
 
-							switch (subMenu)
+							if (!taskHandler.CheckIndex(index))
 							{
-								case 1:
-									{
-										taskHandler.CompleteTask(index);
-										Console.WriteLine("Выбранная задача была выполнена");
-										break;
-									}
-								case 2:
-									{
-										string newName;
-										do
-										{
-											Console.Write("Введите новое название задачи: ");
-											newName = Console.ReadLine();
-										} while (string.IsNullOrEmpty(newName.Trim()));
-										taskHandler.EditTask(index, newName);
-										Console.WriteLine($"Для задачи установленно новое имя: {newName}");
-
-
-
-
-
-										break;
-									}
-								case 3:
-									{
-										taskHandler.RemoveTask(index);
-										Console.WriteLine("Выбранная задача была удалена");
-										break;
-									}
-								case 4:
-									{
-										stayInChoosenTaskMenu = false;
-										break;
-									}
-								default:
-									{
-										Console.WriteLine($"Вы ввели несуществующий номер: {subMenu}");
-										break;
-									}
+								Console.WriteLine("Такого индекса нет");
+								continue;
 							}
 
+
+
+							while (stayInChoosenTaskMenu && stayInTaskMenu)
+							{
+
+								do
+								{
+									PrintTaskMenu();
+									Console.Write("Введите пункт меню: ");
+								} while (!int.TryParse(Console.ReadLine(), out subMenu));
+
+								switch (subMenu)
+								{
+									case 1:
+										{
+											taskHandler.CompleteTask(index);
+											Console.WriteLine("Выбранная задача была выполнена");
+											break;
+										}
+									case 2:
+										{
+											string newName;
+											do
+											{
+												Console.Write("Введите новое название задачи: ");
+												newName = Console.ReadLine();
+											} while (string.IsNullOrEmpty(newName.Trim()));
+											taskHandler.EditTask(index, newName);
+											Console.WriteLine($"Для задачи установленно новое имя: {newName}");
+
+
+
+
+
+											break;
+										}
+									case 3:
+										{
+											taskHandler.RemoveTask(index);
+											Console.WriteLine("Выбранная задача была удалена");
+											break;
+										}
+									case 4:
+										{
+											stayInChoosenTaskMenu = false;
+											break;
+										}
+									default:
+										{
+											Console.WriteLine($"Вы ввели несуществующий номер: {subMenu}");
+											break;
+										}
+								}
+
+							}
+						}
+						catch(ArgumentOutOfRangeException e)
+						{
+							Console.WriteLine("Вы ввели несуществующий индекс");
 						}
 					} while (stayInTaskMenu);
 
