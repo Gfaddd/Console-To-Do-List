@@ -66,7 +66,7 @@ do
 								}
 							} while (!int.TryParse(userInput, out index));
 
-							if (!taskHandler.CheckIndex(index))
+							if (!taskHandler.CheckIndex(index-1))
 							{
 								Console.WriteLine("Такого индекса нет");
 								continue;
