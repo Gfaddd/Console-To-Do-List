@@ -24,7 +24,7 @@ namespace Console_To_Do_List
                 return false;
             return true;
         }
-        public void CompleteTask(int index) {
+		public void CompleteTask(int index) {
             if (CheckIndex(index)) {
                 throw new IndexOutOfRangeException();
             }
@@ -58,10 +58,8 @@ namespace Console_To_Do_List
         {
             string result = "";
 
-            foreach(var i in tasks)
-            {
-                result += $"{i}\n";
-            }
+            for(int i = 0;i<tasks.Count;i++)
+				result += $"{i+1}. {tasks[i]}\n";
             return result;
         }
     }
