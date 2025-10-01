@@ -18,6 +18,7 @@ namespace Console_To_Do_List
         public void CompleteTask()
         {
             isCompleted = true;
+            completingTime = DateTime.Now;
         }
         public string Name
         {
@@ -26,8 +27,9 @@ namespace Console_To_Do_List
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException($"Некорректное значение навзания: {value}");
                 }
+                name = value;
             }
         }
         public DateTime CompletingTime { get { return completingTime; } }
