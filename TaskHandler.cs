@@ -52,5 +52,15 @@ namespace Console_To_Do_List
         public void RemoveTask(int index) {
             tasks.RemoveAt(index);
         }
+        public string GetInfo()
+        {
+            string result = "";
+
+            foreach(var i in tasks)
+            {
+                result += $"{i}\n";
+            }
+            return result;
+        }
     }
 }
