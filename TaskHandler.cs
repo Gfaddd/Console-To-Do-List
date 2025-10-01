@@ -11,7 +11,9 @@ namespace Console_To_Do_List
     internal class TaskHandler : Task
     {
         private List<Task> tasks;
-        public TaskHandler() {
+        private const string FILE_PATH = "addedTasks.txt";
+
+		public TaskHandler() {
             tasks = new List<Task>();
         }
         public void AddTask(Task task) {
@@ -39,15 +41,15 @@ namespace Console_To_Do_List
             }
         }
         public void SaveInfo() {
-            using (FileStream fs = new FileStream("addedTasks.txt", FileMode.Create)) {
+            using (FileStream fs = new FileStream(FILE_PATH, FileMode.Create)) {
                 JsonSerializer.Serialize<List<Task>>(fs, tasks);
             }
         }
         public void LoadInfo()
         {
-            using (FileStream fs = new FileStream("addedTasks.txt", FileMode.Open)) {
-                tasks = JsonSerializer.Deserialize<List<Task>>(fs);
-            }
+            if(File.Exists(FILE_PATH))
+                using (FileStream fs = new FileStream(FILE_PATH, FileMode.Open))
+                    tasks = JsonSerializer.Deserialize<List<Task>>(fs);
         }
         public void RemoveTask(int index) {
             tasks.RemoveAt(index);
