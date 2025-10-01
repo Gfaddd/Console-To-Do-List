@@ -31,5 +31,8 @@ namespace Console_To_Do_List
             }
         }
         public DateTime CompletingTime { get { return completingTime; } }
-    }
+
+        public override string ToString() => $"Задача: {name} {(isCompleted ? $"Выполнена - {completingTime.ToString()}" : "Невыполнена")}";
+
+	}
 }
