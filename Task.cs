@@ -22,17 +22,34 @@ namespace Console_To_Do_List
         }
         public string Name
         {
-            get { return name; }
+            get => name;
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException($"Некорректное значение навзания: {value}");
+                    throw new ArgumentNullException($"Некорректное значение названия");
                 }
                 name = value;
             }
         }
-        public DateTime CompletingTime { get { return completingTime; } }
+        public DateTime CompletingTime 
+        {
+            get => completingTime;
+            set
+            {
+				if (value > DateTime.Now)
+				{
+                    throw new ArgumentOutOfRangeException($"Дата выполнения задачи не может быть больше текущей");
+				}
+				completingTime = value;
+			}
+        }
+        public bool IsCompleted
+        {
+            get => isCompleted;
+
+            set => isCompleted = value;
+        }
 
         public override string ToString() => $"{name} {(isCompleted ? $"Выполнена - {completingTime.ToString()}" : "Невыполнена")}";
 
