@@ -112,6 +112,7 @@ do
 										{
 											taskHandler.RemoveTask(index);
 											Console.WriteLine("Выбранная задача была удалена");
+											stayInChoosenTaskMenu = false;
 											break;
 										}
 									case 4:
